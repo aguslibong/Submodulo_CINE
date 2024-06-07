@@ -24,16 +24,26 @@ export default function Peliculas() {
         setRows(data)
     }
 
-    const onRegistrar = async(pelicula) => {
+    /*const onRegistrar = async(pelicula) => {
         const data = await service.postPelicula(pelicula)
         setRows(data)
 
+    }*/
+
+    const onRegistrar = async (pelicula) => {
+        try {
+            const data = await service.postPelicula(pelicula);
+            setRows((prevRows) => [...prevRows, data]);
+            setAction('C'); // Cambia de nuevo a la vista de consulta después de registrar
+        } catch (error) {
+            console.error('Error al registrar la película:', error);
+        }
     }
 
     return (
         <>
-            <button class="btn btn-primary" type="submit">Consultar</button>
-            <button class="btn btn-primary" type="submit" onClick={() => {setAction('A')}}>Nueva Película</button>
+             <button className="btn btn-primary" type="button" onClick={() => setAction('C')}>Consultar</button>
+             <button className="btn btn-primary" type="button" onClick={() => setAction('A')}>Nueva Película</button>
 
                     {
                         action === 'C' && (

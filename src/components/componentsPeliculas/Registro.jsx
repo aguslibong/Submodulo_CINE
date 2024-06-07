@@ -1,62 +1,100 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 
-export default function Registro({onRegistrar}) {
-    const [titulo, setTitulo] = useState('')
-    const [director, setDirector] = useState('')
-    const [genero, setGenero] = useState('')
-    const [duracion, setDuracion] = useState('')
-    const [sinapsis, setSinapsis] = useState('')
-    const [idClasificacion, setId] = useState('')
+export default function Registro({ onRegistrar }) {
+    const [pelicula, setPelicula] = useState({
+        titulo: '',
+        director: '',
+        genero: '',
+        duracion: '',
+        sinopsis: '',
+        idClasificacion: ''
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setPelicula((prevPelicula) => ({
+            ...prevPelicula,
+            [name]: value
+        }));
+    };
 
     const handleClick = () => {
-        const pelicula = {
-            titulo: titulo,
-            director: director,
-            genero: genero,
-            duracion: duracion,
-            sinopsis: sinapsis,
-            idClasificacion: idClasificacion
-        }
-        onRegistrar(pelicula)
-    }
-
+        onRegistrar(pelicula);
+    };
 
     return (
-        <>
-            <div className='form'>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Título</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onChange={(e)=>{setTitulo(e.target.value)}}></input>
-                </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Director</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onChange={(e)=>{setDirector(e.target.value)}}></input>
-                </div>
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="inputGroupSelect01">Género</label>
-                    <select class="form-select" id="inputGroupSelect01" onChange={(e)=>{setGenero(e.target.value)}}>
-                        <option selected >Choose...</option>
-                        <option value="1">Terror</option>
-                        <option value="2">Acción</option>
-                        <option value="3">Romance</option>
-                    </select>
-                </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Sinápsis</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onChange={(e)=>{setSinapsis(e.target.value)}}></input>
-                </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Duración</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onChange={(e)=>{setDuracion(e.target.value)}}></input>
-                </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Id Clasificación</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onChange={(e)=>{setId(e.target.value)}}></input>
-                </div>
-
-                <button className="btn btn-primary mt-3" onClick={handleClick}>Registrar</button>
+        <div className='form'>
+            <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="titulo">Título</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="titulo"
+                    name="titulo"
+                    value={pelicula.titulo}
+                    onChange={handleChange}
+                />
             </div>
-        </>
-
-    )
+            <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="director">Director</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="director"
+                    name="director"
+                    value={pelicula.director}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="genero">Género</label>
+                <select
+                    className="form-select"
+                    id="genero"
+                    name="genero"
+                    value={pelicula.genero}
+                    onChange={handleChange}
+                >
+                    <option value="" disabled>Choose...</option>
+                    <option value="Terror">Terror</option>
+                    <option value="Acción">Acción</option>
+                    <option value="Romance">Romance</option>
+                </select>
+            </div>
+            <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="sinopsis">Sinopsis</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="sinopsis"
+                    name="sinopsis"
+                    value={pelicula.sinopsis}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="duracion">Duración</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="duracion"
+                    name="duracion"
+                    value={pelicula.duracion}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="idClasificacion">Id Clasificación</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="idClasificacion"
+                    name="idClasificacion"
+                    value={pelicula.idClasificacion}
+                    onChange={handleChange}
+                />
+            </div>
+            <button className="btn btn-primary mt-3" onClick={handleClick}>Registrar</button>
+        </div>
+    );
 }

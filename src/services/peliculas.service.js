@@ -15,6 +15,9 @@ async function getByFilters(filter){
         console.log(pelicula)
         const res = await fetch(URL, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(pelicula)
         });
 
